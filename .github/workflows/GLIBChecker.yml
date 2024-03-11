@@ -12,6 +12,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Install dependencies
+        run: sudo apt-get install ripgrep
+
       - name: Compile using CMake
         timeout-minutes: 2
         run: make build
