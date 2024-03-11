@@ -23,15 +23,16 @@ int glc::GLIBChecker::run(int argc, const char *argv[]) {
     std::istringstream iss(*nm_output.first);
     std::string line;
     std::string symbol;
+    [[maybe_unused]] int unused;
 
     while (std::getline(iss, line)) {
         if (line.find("GLIBC_") == std::string::npos)
             continue;
         symbol = Utilities::getLastWordAndCut(line, '@');
         if (symbol == "exit" || symbol == "_Exit")
-            std::system((R"(rg [^\w])" + symbol += R"(\\\()").c_str());
+            unused = std::system((R"(rg [^\w])" + symbol += R"(\\\()").c_str());
         else
-            std::system((R"(rg [^\w:])" + symbol += R"(\\\()").c_str());
+            unused = std::system((R"(rg [^\w:])" + symbol += R"(\\\()").c_str());
     }
     return 0;
 }
