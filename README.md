@@ -3,7 +3,7 @@
 GLIBChecker is a tool designed to check the usage of LibC functions in a C++ project.
 
 It checks if there are LibC functions in your binary which are used without namespace in your code.
-It also checks if you are using `exit` (see [**Features**](https://github.com/Clement-Z4RM/GLIBChecker?tab=readme-ov-file#features) to ignore it).
+It also checks if you are using `exit` (see [**Features**](https://github.com/Clement-Z4RM/GLIBChecker?tab=readme-ov-file#-features) to ignore it).
 
 
 ## 👨‍💻 Run Locally
@@ -16,7 +16,7 @@ It also checks if you are using `exit` (see [**Features**](https://github.com/Cl
 
 **if you have lower version, you can try to change the first line of `CMakeLists.txt` with your version*
 
-Clone the project (or get it in [releases](https://github.com/Clement-Z4RM/Mango/releases/latest))
+Clone the project (or get it in [releases](https://github.com/Clement-Z4RM/GLIBChecker/releases/latest))
 
 ```bash
 git clone https://github.com/Clement-Z4RM/GLIBChecker.git
