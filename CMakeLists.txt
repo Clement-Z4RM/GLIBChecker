@@ -8,5 +8,5 @@ add_compile_options(-W -Wall -Wextra -Werror -Wpedantic)
 add_executable(glib_checker src/main.cpp
         src/GlibChecker.cpp
         src/GlibChecker.hpp
-        src/Utilities.cpp
-        src/Utilities.hpp)
+        src/Utilities/Utilities.cpp
+        src/Utilities/Utilities.hpp)

@@ -11,6 +11,7 @@
 #include <memory>
 #include <utility>
 #include <string>
+#include <vector>
 
 namespace glc {
     class Utilities {
@@ -18,6 +19,8 @@ namespace glc {
         static std::pair<std::shared_ptr<std::string>, int> exec(const std::string &cmd);
 
         static std::string getLastWordAndCut(const std::string &str, char cutChar);
+
+        static std::vector<std::string> split(const std::string &str, char delimiter);
     };
 }
 

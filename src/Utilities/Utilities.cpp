@@ -5,6 +5,7 @@
 ** Utilities.cpp
 */
 
+#include <sstream>
 #include "Utilities.hpp"
 
 std::pair<std::shared_ptr<std::string>, int> glc::Utilities::exec(const std::string &cmd) {
@@ -30,4 +31,14 @@ std::string glc::Utilities::getLastWordAndCut(const std::string &str, char cutCh
     if (cutIndex != std::string::npos)
         lastWord.erase(cutIndex);
     return lastWord;
+}
+
+std::vector<std::string> glc::Utilities::split(const std::string &str, char delimiter) {
+    std::istringstream iss(str);
+    std::vector<std::string> tokens;
+    std::string token;
+
+    while ((std::getline(iss, token, delimiter)))
+        tokens.push_back(token);
+    return tokens;
 }
