@@ -40,9 +40,9 @@ int glc::GLIBChecker::run(int argc, const char *argv[]) {
         if (std::find(ignoreList.begin(), ignoreList.end(), symbol) != ignoreList.end())
             continue;
         if (symbol == "exit" || symbol == "_Exit")
-            rg_output = Utilities::exec(R"(rg -n [^\w])" + symbol += R"(\\\()");
+            rg_output = Utilities::exec(R"(rg -n -. [^\w])" + symbol += R"(\\\( .)");
         else
-            rg_output = Utilities::exec(R"(rg -n [^\w:])" + symbol += R"(\\\()");
+            rg_output = Utilities::exec(R"(rg -n -. [^\w:])" + symbol += R"(\\\( .)");
         if (!rg_output.second)
             ++to_return;
         rg_iss = std::istringstream(*rg_output.first);
