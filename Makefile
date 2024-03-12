@@ -27,7 +27,7 @@ build:
 
 path:
 	@echo "Moving GLIBChecker to /usr/bin/..."
-	@sudo mv build/glib_checker /usr/bin/
+	@sudo cp build/glib_checker /usr/bin/
 	@echo "GLIBChecker moved successfully!"
 
 install:	build path
