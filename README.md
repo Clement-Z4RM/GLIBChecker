@@ -8,11 +8,11 @@ It also checks if you are using `exit` (see [**Features**](https://github.com/Cl
 
 ## 👨‍💻 Run Locally
 
-#### Prerequesties
+#### Prerequisites
 
-- [CMake](https://cmake.org/) (3.27 or higher*)
 - [ripgrep](https://github.com/BurntSushi/ripgrep?tab=readme-ov-file#installation)
 - nm (should be installed on your system by default)
+- [CMake](https://cmake.org/) (if you want to compile by yourself, 3.27 or higher*)
 
 **if you have lower version, you can try to change the first line of `CMakeLists.txt` with your version*
 
@@ -51,7 +51,7 @@ glib_checker <binary>
 #### Ignore files, functions,...:
 Set `GLIBCHECKER_IGNORE` environment variable with files, function,... like this:
 ```bash
-GLIBCHECKER_IGNORE="src/Foo.cpp" ./glibchecker foo
+GLIBCHECKER_IGNORE="src/Foo.cpp" glibchecker foo
 ```
 
 Here are the patterns taken into account:
