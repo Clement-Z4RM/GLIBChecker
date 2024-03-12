@@ -51,16 +51,24 @@ glib_checker <binary>
 #### Ignore files, functions,...:
 Set `GLIBCHECKER_IGNORE` environment variable with files, function,... like this:
 ```bash
-GLIBCHECKER_IGNORE="src/Foo.cpp" glibchecker foo
+GLIBCHECKER_IGNORE="./src/Foo.cpp" glibchecker foo
 ```
 
 Here are the patterns taken into account:
-- File *(e.g.: "src/Foo.cpp")*
-- File:Line *(e.g.: "src/Foo.cpp:42")*
+- File *(e.g.: "./src/Foo.cpp")*
+- File:Line *(e.g.: "./src/Foo.cpp:42")*
 - Function *(e.g.: "foo")*
 The file must be relative to your current directory, and must have the same format as in the GLIBChecker output.
 
 Patterns must be space-separated.
+
+#### Run in GitHub Actions:
+
+You can use this tool in your GitHub Actions workflow. To have the error message in the GitHub Actions summary, you can set the `GLIBCHECKER_GH_ACTIONS` environment variable:
+
+```bash
+GLIBCHECKER_GH_ACTIONS= glib_checker <binary>
+```
 
 
 ## 🐛 Bug Reports

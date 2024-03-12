@@ -21,4 +21,4 @@ jobs:
 
       - name: Execute the program
         timeout-minutes: 2
-        run: ./build/glib_checker ./build/glib_checker
+        run: GLIBCHECKER_GH_ACTIONS= ./build/glib_checker ./build/glib_checker

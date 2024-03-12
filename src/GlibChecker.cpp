@@ -24,6 +24,7 @@ int glc::GLIBChecker::run(int argc, const char *argv[]) {
         return 1;
 
     const char *glibCheckerIgnore = std::getenv("GLIBCHECKER_IGNORE");
+    bool ghActions = std::getenv("GLIBCHECKER_GH_ACTIONS") != nullptr;
     auto ignoreList = glibCheckerIgnore ? Utilities::split(glibCheckerIgnore, ' ') : std::vector<std::string>();
     std::istringstream iss(*nm_output.first);
     std::string line;
@@ -55,7 +56,10 @@ int glc::GLIBChecker::run(int argc, const char *argv[]) {
             if (std::find(ignoreList.begin(), ignoreList.end(), rg_line[0]) != ignoreList.end() ||
                 std::find(ignoreList.begin(), ignoreList.end(), rg_line[0] + ':' + rg_line[1]) != ignoreList.end())
                 continue;
-            std::cout << "\33[35m" << rg_line[0] << "\33[0m:\33[32m" << rg_line[1] << "\33[0m: \33[31m" << symbol << "\33[0m: ";
+            if (ghActions)
+                std::cout << "::error file=" << rg_line[0] << ",line=" << rg_line[1] << ",level=" << symbol << "::";
+            else
+                std::cout << "\33[35m" << rg_line[0] << "\33[0m:\33[32m" << rg_line[1] << "\33[0m: \33[31m" << symbol << "\33[0m: ";
             for (std::uint64_t i = 2; i < rg_line.size(); ++i) {
                 std::cout << rg_line[i];
                 if (i + 1 < rg_line.size())
