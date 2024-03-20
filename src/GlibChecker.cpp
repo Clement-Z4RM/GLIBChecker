@@ -33,6 +33,7 @@ int glc::GLIBChecker::run(int argc, const char *argv[]) {
     std::istringstream rg_iss;
     std::vector<std::string> rg_line;
     int to_return = 0;
+    bool symbolReported = false;
 
     while (std::getline(iss, line)) {
         if (line.find("GLIBC_") == std::string::npos)
@@ -44,8 +45,6 @@ int glc::GLIBChecker::run(int argc, const char *argv[]) {
             rg_output = Utilities::exec(R"(rg -n -. [^\w])" + symbol += R"(\\\( .)");
         else
             rg_output = Utilities::exec(R"(rg -n -. [^\w:])" + symbol += R"(\\\( .)");
-        if (!rg_output.second)
-            ++to_return;
         rg_iss = std::istringstream(*rg_output.first);
         while (std::getline(rg_iss, line)) {
             rg_line = Utilities::split(line, ':');
@@ -54,8 +53,11 @@ int glc::GLIBChecker::run(int argc, const char *argv[]) {
                 continue;
             }
             if (std::find(ignoreList.begin(), ignoreList.end(), rg_line[0]) != ignoreList.end() ||
-                std::find(ignoreList.begin(), ignoreList.end(), rg_line[0] + ':' + rg_line[1]) != ignoreList.end())
+                std::find(ignoreList.begin(), ignoreList.end(), rg_line[0] + ':' + rg_line[1]) != ignoreList.end() ||
+                std::find(ignoreList.begin(), ignoreList.end(), rg_line[0] + ':' + symbol) != ignoreList.end() ||
+                std::find(ignoreList.begin(), ignoreList.end(), rg_line[0] + ':' + rg_line[1] + ':' + symbol) != ignoreList.end())
                 continue;
+            symbolReported = true;
             if (ghActions)
                 std::cout << "::error file=" << rg_line[0] << ",line=" << rg_line[1] << ",level=" << symbol << "::";
             else
@@ -67,6 +69,9 @@ int glc::GLIBChecker::run(int argc, const char *argv[]) {
             }
             std::cout << std::endl;
         }
+        if (symbolReported)
+            ++to_return;
+        symbolReported = false;
     }
     return to_return;
 }
