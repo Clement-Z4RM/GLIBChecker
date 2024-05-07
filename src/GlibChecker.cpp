@@ -36,15 +36,15 @@ int glc::GLIBChecker::run(int argc, const char *argv[]) {
     bool symbolReported = false;
 
     while (std::getline(iss, line)) {
-        if (line.find("GLIBC_") == std::string::npos)
+        if (line.find('@') == std::string::npos)
             continue;
         symbol = Utilities::getLastWordAndCut(line, '@');
         if (std::find(ignoreList.begin(), ignoreList.end(), symbol) != ignoreList.end())
             continue;
         if (symbol == "exit" || symbol == "_Exit")
-            rg_output = Utilities::exec(R"(rg -n -. [^\w])" + symbol += R"(\\\( .)");
+            rg_output = Utilities::exec(R"(rg -n -. [^\\w])" + symbol + R"(\\\( .)");
         else
-            rg_output = Utilities::exec(R"(rg -n -. [^\w:])" + symbol += R"(\\\( .)");
+            rg_output = Utilities::exec(R"(rg -n -. [^\\w:])" + symbol + R"(\\\( .)");
         rg_iss = std::istringstream(*rg_output.first);
         while (std::getline(rg_iss, line)) {
             rg_line = Utilities::split(line, ':');
