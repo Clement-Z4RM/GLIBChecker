@@ -34,6 +34,7 @@ int glc::GLIBChecker::run(int argc, const char *argv[]) {
     std::vector<std::string> rg_line;
     int to_return = 0;
     bool symbolReported = false;
+    bool skip = false;
 
     while (std::getline(iss, line)) {
         if (line.find('@') == std::string::npos)
@@ -52,11 +53,19 @@ int glc::GLIBChecker::run(int argc, const char *argv[]) {
                 std::cout << line << std::endl;
                 continue;
             }
-            if (std::find(ignoreList.begin(), ignoreList.end(), rg_line[0]) != ignoreList.end() ||
+            for (const auto &ignore : ignoreList)
+                if (ignore.ends_with('/') && rg_line[0].starts_with(ignore)) {
+                    skip = true;
+                    break;
+                }
+            if (skip ||
+                std::find(ignoreList.begin(), ignoreList.end(), rg_line[0]) != ignoreList.end() ||
                 std::find(ignoreList.begin(), ignoreList.end(), rg_line[0] + ':' + rg_line[1]) != ignoreList.end() ||
                 std::find(ignoreList.begin(), ignoreList.end(), rg_line[0] + ':' + symbol) != ignoreList.end() ||
-                std::find(ignoreList.begin(), ignoreList.end(), rg_line[0] + ':' + rg_line[1] + ':' + symbol) != ignoreList.end())
+                std::find(ignoreList.begin(), ignoreList.end(), rg_line[0] + ':' + rg_line[1] + ':' + symbol) != ignoreList.end()) {
+                skip = false;
                 continue;
+            }
             symbolReported = true;
             if (ghActions)
                 std::cout << "::error file=" << rg_line[0] << ",line=" << rg_line[1] << ",level=" << symbol << "::";

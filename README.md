@@ -57,6 +57,7 @@ GLIBCHECKER_IGNORE="./src/Foo.cpp" glibchecker foo
 Here are the patterns taken into account:
 - Function *(e.g.: "foo")*
 - File *(e.g.: "./src/Foo.cpp")*
+- Folder *(e.g.: "./src/")*
 - File:Line *(e.g.: "./src/Foo.cpp:42")*
 - File:Function *(e.g.: "./src/Foo.cpp:foo")*
 - File:Line:Function *(e.g.: "./src/Foo.cpp:42:foo")*
