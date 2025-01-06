@@ -48,6 +48,8 @@ int glc::GLIBChecker::run(int argc, const char *argv[]) {
             rg_output = Utilities::exec(R"(rg -n -. [^\\w:.])" + symbol + R"(\\\( .)");
         rg_iss = std::istringstream(*rg_output.first);
         while (std::getline(rg_iss, line)) {
+            if (line.ends_with("glibchecker-ignore"))
+                continue;
             rg_line = Utilities::split(line, ':');
             if (rg_line.size() < 3) {
                 std::cout << line << std::endl;
