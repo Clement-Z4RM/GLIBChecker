@@ -45,7 +45,7 @@ int glc::GLIBChecker::run(int argc, const char *argv[]) {
         if (symbol == "exit" || symbol == "_Exit")
             rg_output = Utilities::exec(R"(rg -n -. [^\\w])" + symbol + R"(\\\( .)");
         else
-            rg_output = Utilities::exec(R"(rg -n -. [^\\w:.])" + symbol + R"(\\\( .)");
+            rg_output = Utilities::exec(R"(rg -n -. [^\\w:.>])" + symbol + R"(\\\( .)");
         rg_iss = std::istringstream(*rg_output.first);
         while (std::getline(rg_iss, line)) {
             if (line.ends_with("glibchecker-ignore"))
