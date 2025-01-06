@@ -49,7 +49,10 @@ glib_checker <binary>
 ## ✨ Features
 
 #### Ignore files, functions,...:
-Set `GLIBCHECKER_IGNORE` environment variable with files, function,... like this:
+
+Add "glibchecker-ignore" at the end of a line to ignore the function on this line.
+
+You can also set `GLIBCHECKER_IGNORE` environment variable with files, function,... like this:
 ```bash
 GLIBCHECKER_IGNORE="./src/Foo.cpp" glibchecker foo
 ```
